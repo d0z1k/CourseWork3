@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, render_template, current_app
+from flask import Flask, Blueprint, render_template, current_app, abort
 from config import DATA_PATH_POSTS
 from blueprint_posts.dao.post_dao import PostDAO
 
@@ -10,3 +10,13 @@ post_dao = PostDAO(DATA_PATH_POSTS)
 def page_posts_index():
     all_posts = post_dao.get_all()
     return render_template("post_index.html", posts=all_posts)
+
+
+@blueprint_posts.route("/posts/<int:pk>/")
+def page_posts_single(pk):
+    post = post_dao.get_by_pk(pk)
+
+    if post is None:
+        abort(404)
+
+    return render_template("post_post.html", post=post)
