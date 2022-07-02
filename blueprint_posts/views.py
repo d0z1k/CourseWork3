@@ -2,6 +2,7 @@ from flask import Flask, Blueprint, render_template, current_app, abort
 
 from blueprint_posts.dao.comment import Comment
 from blueprint_posts.dao.comment_dao import CommentDAO
+from blueprint_posts.dao.post import Post
 from config import DATA_PATH_POSTS, DATA_PATH_COMMENTS
 from blueprint_posts.dao.post_dao import PostDAO
 
@@ -23,15 +24,15 @@ def page_posts_index():
 
 
 @blueprint_posts.route("/posts/<int:pk>/")
-def page_posts_single(pk):
+def page_posts_single(pk: int):
     """
     Определённый пост
     :param pk:
     """
-    post = post_dao.get_by_pk(pk)
-    comments: list[Comment] = comments_dao.get_comments_by_post_id(id)
+    post: Post | None = post_dao.get_by_pk(pk)
+    comments: list[Comment] = comments_dao.get_comments_by_post_id(pk)
 
     if post is None:
         abort(404)
 
-    return render_template("post_post.html", post=post)
+    return render_template("post_post.html", post=post, comments=comments)
