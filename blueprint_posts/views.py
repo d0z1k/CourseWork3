@@ -47,6 +47,9 @@ def page_posts_by_user(user_name: str):
 
     posts: list[Post] = post_dao.get_by_poster(user_name)
 
+    if not posts:
+        abort(404, "user not found")
+
     return render_template("post_user-feed.html", posts=posts, user_name=user_name)
 
 
