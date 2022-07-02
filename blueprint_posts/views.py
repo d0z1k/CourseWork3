@@ -1,3 +1,5 @@
+import logging
+
 from flask import Flask, Blueprint, render_template, current_app, abort, request
 
 from blueprint_posts.dao.comment import Comment
@@ -12,6 +14,8 @@ blueprint_posts = Blueprint("blueprint_posts", __name__, template_folder="templa
 # Доступ к данным из конфига
 post_dao = PostDAO(DATA_PATH_POSTS)
 comments_dao = CommentDAO(DATA_PATH_COMMENTS)
+
+
 
 
 @blueprint_posts.route("/")

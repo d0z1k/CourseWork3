@@ -1,5 +1,6 @@
-from flask import Blueprint, jsonify
+import logging
 
+from flask import Blueprint, jsonify
 
 from blueprint_posts.dao.comment_dao import CommentDAO
 from blueprint_posts.dao.post import Post
@@ -13,6 +14,8 @@ blueprint_api = Blueprint("blueprint_api", __name__)
 post_dao = PostDAO(DATA_PATH_POSTS)
 comments_dao = CommentDAO(DATA_PATH_COMMENTS)
 
+api_logger = logging.getLogger("api_logger")
+
 
 @blueprint_api.route("/posts/")
 def api_posts_all():
@@ -20,6 +23,7 @@ def api_posts_all():
     Все посты(endpoints)
     """
     all_posts = post_dao.get_all()
+    api_logger.debug("Запрошены все посты")
     return jsonify([post.as_dict() for post in all_posts]), 200
 
 

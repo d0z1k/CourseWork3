@@ -4,12 +4,15 @@ from blueprint_api.views import blueprint_api
 from blueprint_posts.views import blueprint_posts
 from exceptions.exceptions import DataSourceError
 
+import logger
+
 
 def create_and_config_app(config_path):
     app = Flask(__name__)
     app.register_blueprint(blueprint_posts)
     app.register_blueprint(blueprint_api, url_prefix='/api')
     app.config.from_pyfile(config_path)
+    logger.config(app)
     return app
 
 
