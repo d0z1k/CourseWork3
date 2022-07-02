@@ -35,4 +35,4 @@ def page_posts_single(pk: int):
     if post is None:
         abort(404)
 
-    return render_template("post_post.html", post=post, comments=comments)
+    return render_template("post_post.html", post=post, comments=comments, comments_len=len(comments))
