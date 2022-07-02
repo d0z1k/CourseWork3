@@ -34,7 +34,17 @@ class CommentDAO:
 
         return comments
 
+    def get_comments_by_post_id(self, post_id):
+        """
+        Получает все комментарии к определённому посту по ID
+        :param post_id:
+        :return: comments_match
+        """
 
-cd = CommentDAO("../../data/comments.json")
+        comments = self.load_comments()
 
-print(cd.load_comments())
+        comments_match = [c for c in comments if c.post_id == post_id]
+        return comments_match
+
+
+
