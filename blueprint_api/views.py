@@ -20,7 +20,7 @@ def api_posts_all():
     Все посты(endpoints)
     """
     all_posts = post_dao.get_all()
-    return jsonify([post.as_dict() for post in all_posts])
+    return jsonify([post.as_dict() for post in all_posts]), 200
 
 
 @blueprint_api.route("/posts/<int:pk>/")
@@ -32,5 +32,5 @@ def api_post_by_pk(pk: int):
 
     post: Post | None = post_dao.get_by_pk(pk)
 
-    return jsonify(post.as_dict())
+    return jsonify(post.as_dict()), 200
 
