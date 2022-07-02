@@ -37,10 +37,8 @@ def api_post_by_pk(pk: int):
     post: Post | None = post_dao.get_by_pk(pk)
 
     if post is None:
-        api_logger.debug(f"Non existing Post #{pk} was requested")
+        api_logger.debug(f"Non existing Post #{pk} was requested")  # логирует запрос не существующего поста
         abort(404)
 
-
-    api_logger.debug(f"Post #{pk} was requested")
+    api_logger.debug(f"Post #{pk} was requested")  # логирует запрос существующего поста
     return jsonify(post.as_dict()), 200
-
